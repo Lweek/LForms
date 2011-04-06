@@ -1,0 +1,68 @@
+[Config]
+Compilator.SaveAll=0
+Compilator.Capture=0
+Compilator.HideOutput=0
+Compilator.LogType=0
+DefaultCPIndex=7
+LogtoEnd=1
+DontOpen=0
+AbsolutePath=0
+FileFormat=0
+ProjectFilesOnly=0
+[Project tree]
+lforms
+	+lforms
+		+lforms_modules
+			lform_modules\formitem.php
+			lform_modules\formitem_custom.php
+			lform_modules\formitem_date.php
+			lform_modules\formitem_file.php
+			lform_modules\formitem_hidden.php
+			lform_modules\formitem_checkbox.php
+			lform_modules\formitem_multiselect.php
+			lform_modules\formitem_password.php
+			lform_modules\formitem_radio.php
+			lform_modules\formitem_select.php
+			lform_modules\formitem_submit.php
+			lform_modules\formitem_text.php
+			lform_modules\formitem_textarea.php
+			lform_modules\formvalidator_alnum.php
+			lform_modules\formvalidator_email.php
+			lform_modules\formvalidator_expecting.php
+			lform_modules\formvalidator_identical.php
+			lform_modules\formvalidator_int.php
+			lform_modules\formvalidator_length.php
+		compile.php
+		index.php
+		lforms.php
+		lforms_licence.txt
+		CHANGELOG.txt
+[Open project files]
+0=compile.php
+1=lforms.php
+2=windex.php
+3=index.php
+4=CHANGELOG.txt
+5=..\..\..\Users\Lweek\AppData\Local\Temp\PSpad\Furrici\www\modules\vzhled\module.tpl
+[Selected Project Files]
+Main=
+Selected=..\..\..\Users\Lweek\AppData\Local\Temp\PSpad\Furrici\www\modules\vzhled\module.tpl
+[compile.php]
+TopLine=1
+Caret=35,26
+[lforms.php]
+TopLine=147
+Caret=15,173
+BookMark1=23,162
+[windex.php]
+TopLine=57
+Caret=26,71
+[index.php]
+TopLine=14
+Caret=1,48
+[CHANGELOG.txt]
+TopLine=1
+Caret=1,4
+[..\..\..\Users\Lweek\AppData\Local\Temp\PSpad\Furrici\www\modules\vzhled\module.tpl]
+TopLine=86
+Caret=7,104

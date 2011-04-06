@@ -1,0 +1,22 @@
+
+  CHANGELOG LForms 1.0
+
+# 0.9.1.29 ---------------------------------------------------------------------
+* podpora multiple file (metoda setMultiple(bool) a isMultiple())
+* select s option skupinama (do setList() se vloží trojrozměrné pole)
+
+# 0.9.1.28 ---------------------------------------------------------------------
+* pridany prvek FormItem_Email, FormItem_Url a FormItem_Number vyuzivajici HTML5
+* errory presunuty dovnitr <dd>
+* FormItem co neprosel validaci ma nyni na vystupu class="error"
+* na konci kazdeho FormItem je <div class="clear"></div> pro moznost stylovani
+* opraveny validator length
+* FormItem_Text a jemu podobni ziskali metody maxLength() .. vyznam je jasny
+* opraveny checkbox pokud ma jako defaultni hodnotu vracet nulu
+* pridan parametr errorFiletype k FormItem_file do metody setRequiredFiletype
+* FormItemy maji novou metodu required() pro dodatecnou zmenu parametru require
+
+# 0.9.1.27 ---------------------------------------------------------------------
+* opravena chyba v ArrayAccess - nevracel hodnoty
+* opravena chyba pri renderovani formu bez formitems
+* hidden input jiz neni obalen <dd> a ignoruje label
