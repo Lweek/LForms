@@ -1,24 +1,35 @@
 <?php
 require_once 'recaptchalib.php';
-class FormValidator_Recaptcha
-{    
+/**
+ * This is recaptcha FormItem validator for LForms
+ * 
+ * @author Vladimir Belohradsky <info@lweek.net>
+ * @package LForms
+ * @subpackage LForms\FormValidator
+ * @version 1.1 2011-06-19
+ */
+class FormValidator_Recaptcha {
+	/** @var string $privateKey */
     protected $privateKey = '';
-    protected $errorMessage = 'You should pass thru recaptcha'; // string
+	/** @var string $errorMessage */
+    protected $errorMessage = 'You should pass thru recaptcha';
 
 	/**
-	 *	@return	FormValidator_Int
+	 * @param string $errorMessage
+	 * @param mixed $parameter 
+	 * @return FormValidator_Int
 	 */
-	public function __construct($errorMessage = NULL, $parameter = NULL)
-	{
+	public function __construct($errorMessage = NULL, $parameter = NULL) {
 		if ($errorMessage) $this->errorMessage = $errorMessage;
 	}
 
 	/**
-	 *	Check value if match
-	 *	@return	string
+	 * Check value if match
+	 * 
+	 * @param string $value
+	 * @return string
 	 */
-	public function check(&$value)
-	{
+	public function check(&$value) {
 		$resp = recaptcha_check_answer (
 			$this->privateKey,
             $_SERVER["REMOTE_ADDR"],
@@ -30,33 +41,57 @@ class FormValidator_Recaptcha
 	}
 }
 
-final class FormItem_Recaptcha extends FormItem_Text
-{
+/**
+ * This is recaptcha FormItem for LForms
+ * 
+ * @author Vladimir Belohradsky <info@lweek.net>
+ * @package LForms
+ * @subpackage LForms\FormItem
+ * @version 1.1 2011-06-19
+ * @final
+ */
+final class FormItem_Recaptcha extends FormItem_Text {
+	/** @var string $publicKey */
 	protected $publicKey = '';
-	protected $validators = NULL; // validator
+	/** @var arrray $validators */
+	protected $validators = NULL;
+	/** @var string $value */
 	protected $value = 'musttest';
-	protected $require = FALSE;
+	/** @var bool $required */
+	protected $required = FALSE;
 	
-	public function __construct($name = NULL, $required = FALSE)
-	{
+	/**
+	 * @param string $name
+	 * @param bool $required
+	 * @return FormItem_Recaptcha 
+	 */
+	public function __construct($name = NULL, $required = FALSE) {
 		$this->validators[] = new FormValidator_Recaptcha($required);
 		return $this;
 	}
 
-	public function addValidator()
-	{
+	/**
+	 * This item cannot have validator
+	 * 
+	 * @return FormItem_Recaptcha 
+	 */
+	public function addValidator() {
 		return $this;
 	}
+
 	/**
-	 *	Print item
+	 * Print item
 	 */	 	
-	public function input()
-	{
+	public function input() {
 		return recaptcha_get_html($this->publicKey);
 	}
 
-	public function getValue()
-	{
+	/**
+	 * Override return
+	 * 
+	 * @return NULL
+	 */
+	public function getValue() {
 		return NULL;
 	}
 }

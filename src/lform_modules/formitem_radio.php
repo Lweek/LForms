@@ -1,25 +1,27 @@
 <?php
 /**
- *	Standard select input item for forms
+ * Standard select input item for forms
  *
- *	@author	Vladimir Belohradsky <info@lweek.net>
+ * @author Vladimir Belohradsky <info@lweek.net>
+ * @package LForms
+ * @package Lforms\FormItem
+ * @version 1.1 2011-06-19
  */
-class FormItem_Radio extends FormItem
-{
-	protected $options = NULL; // array of string
+class FormItem_Radio extends FormItem {
+	/** @var array $options array(string) */
+	protected $options = NULL;
 	
 	/**
-	 *	Print item
-	 *	@return	string	 
+	 * Print item
+	 *
+	 * @return string
 	 */
-	public function input()
-	{
+	public function input() {
 		$id = ($this->name)? ' id="' . $this->name . '"':'';
 		$name = ($this->name)? ' name="' . $this->name . '"':'';
 		$options = '';
 		$errors = ($this->errors)? ' class="error"':'';
-		if ($this->options) foreach ($this->options as $value => $option)
-		{
+		if ($this->options) foreach ($this->options as $value => $option) {
 			$selected = ($this->value == $value)? ' checked="checked"':'';
 			$options .= '<input type="radio" value="' . $errors . $value . '"' . 
 				$selected . $id . $name . '>' .	$option;
@@ -28,12 +30,12 @@ class FormItem_Radio extends FormItem
 	}
 
 	/**
-	 *	Set list of options
-	 *  @param $list array
-	 *	@return	FormItem_Radio
+	 * Set list of options
+	 *
+	 * @param array $list
+	 * @return FormItem_Radio
 	 */
-	public function setList($list)
-	{
+	public function setList($list) {
 		if (is_array($list)) $this->options = $list;
 		return $this;
 	}

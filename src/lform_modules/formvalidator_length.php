@@ -1,31 +1,35 @@
 <?php
 /**
- *	Validate char lenght of value
+ * Validate char lenght of value
  *
- *	@author	Vladimir Belohradsky <info@lweek.net>
+ * @author Vladimir Belohradsky <info@lweek.net>
+ * @package LForms
+ * @package Lforms\FormValidator
+ * @version 1.1 2011-06-19
  */
-class FormValidator_Length
-{
-	protected $errorMessage = 'This value isn\'t long enought'; // string
-	protected $errorMessageAlt = 'This value lenght isn\'t in range'; // string
-	protected $maxLenght; // int
-	protected $minLenght = NULL; // int
+class FormValidator_Length {
+	/** @var string $errorMessage */
+	protected $errorMessage = 'This value isn\'t long enought';
+	/** @var string $errorMessageAlt */
+	protected $errorMessageAlt = 'This value lenght isn\'t in range';
+	/** @var int $maxLenght */
+	protected $maxLenght;
+	/** @var int $minLength */
+	protected $minLenght = NULL;
 
 	/**
-	 *  @param $errorMessage string
-	 *  @param $parameter mixed
-	 *	@return	FormValidator_Length
+	 * @param string $errorMessage
+	 * @param mixed $parameter
+	 * @return FormValidator_Length
 	 */
-	public function __construct($errorMessage = NULL, $parameter = 0)
-	{
-		if (is_array($parameter))
-		{
+	public function __construct($errorMessage = NULL, $parameter = 0) {
+		if (is_array($parameter)) {
 			$this->minLength = (int) $parameter[0];
 			$this->maxLength = (int) $parameter[1];
+		} else {
+			$this->maxLength = (int) $parameter;
 		}
-		else $this->maxLength = (int) $parameter;
-		if ($errorMessage) 
-		{
+		if ($errorMessage) {
 			$this->errorMessage = $errorMessage;
 			$this->errorMessageAlt = $errorMessage;
 		}
@@ -33,18 +37,20 @@ class FormValidator_Length
 	}
 
 	/**
-	 *	Check value if match
-	 *  @param $value string
-	 *	@return	string
+	 * Check value if match
+	 *
+	 * @param string $value
+	 * @return string
 	 */
-	public function check($value)
-	{		
-		if ($this->minLenght)
-		{
-			$length = strlen($value);
-			return ($length > $this->maxLength OR $length < $this->minLength)? 
-				$this->errorMessageAlt: NULL;
+	public function check($value) {
+		$error = NULL;
+		$length = strlen($value);
+		if ($this->minLenght && $length < $this->minLength) {
+			$error = $this->errorMessageAlt;
 		}
-		return (strlen($value) > $this->maxLength)? $this->errorMessage: NULL;
+		elseif ($length > $this->maxLength) {
+			$error = $this->errorMessage;
+		}
+		return $error;
 	}
 }

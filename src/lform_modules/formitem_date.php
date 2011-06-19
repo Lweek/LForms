@@ -1,37 +1,46 @@
 <?php
 /**
- *	Date input item using selectboxes for forms
+ * Date input item using selectboxes for forms
  *
- *	@author	Vladimir Belohradsky <info@lweek.net>
+ * @author Vladimir Belohradsky <info@lweek.net>
+ * @package LForms
+ * @package Lforms\FormItem
+ * @version 1.1 2011-06-19
  */
-class FormItem_Date extends FormItem
-{
-	protected $year = NULL; //int
-	protected $month = NULL; //int
-	protected $day = NULL; //int
+class FormItem_Date extends FormItem {
+	/** @var int $year */
+	protected $year = NULL;
+	/** @var int $month */
+	protected $month = NULL;
+	/** @var int $day */
+	protected $day = NULL;
+	/** @var array $emptyValues */
 	protected $emptyValues = array('----------');
 
 	/**
-	 *	Return item value	
-	 *	@return	string
+	 * Return item value
+	 * 
+	 * @return string
 	 */
-	public function getValue()
-	{
-		return (string) ($this->isEmpty())? 
-			(($this->defaultValue)? $this->defaultValue: NULL): 
-				$this->year . '-' . $this->month . '-' . $this->day;
+	public function getValue() {
+		$value = '';
+		if ($this->isEmpty()) {
+			$value = $this->defaultValue? $this->defaultValue: NULL;
+		} else {
+			$value = $this->year . '-' . $this->month . '-' . $this->day;
+		}
+		return (string) $value;
 	}
 
 	/**
-	 *	Handle value from input
-	 *  @param $value string with correct DATETIME
-	 *	@return	FormItem
+	 * Handle value from input
+	 * 
+	 * @param string $value correct DATETIME
+	 * @return FormItem
 	 */
-	public function loadValue($value)
-	{
+	public function loadValue($value) {
 		$value = $value[0] . '-' . $value[1] . '-' . $value[2];
-		foreach($this->emptyValues as &$emptyValue)
-		{
+		foreach($this->emptyValues as &$emptyValue) {
 			if ($emptyValue == $value) return $this;
 		}
 		$this->setValue($value);
@@ -39,12 +48,12 @@ class FormItem_Date extends FormItem
 	}
 
 	/**
-	 *	Set item value
-	 *  @param $value string with correct DATETIME
-	 *	@return	FormItem
+	 * Set item value
+	 * 
+	 * @param string $value correct DATETIME
+	 * @return FormItem
 	 */
-	public function setValue($value)
-	{
+	public function setValue($value) {
 		if (date('Y-m-d', strtotime($value)) != $value) return $this;
 		$value = explode('-', $value);
 		$this->year = $value[0];
@@ -54,11 +63,11 @@ class FormItem_Date extends FormItem
 	}
 
 	/**
-	 *	Print item
-	 *	@return	string
+	 * Print item
+	 * 
+	 * @return string
 	 */
-	public function input()
-	{
+	public function input() {
 		$year = (int) date('Y', time());
 		$year = $this->buildSelect($year-120, $year+10, 'year');
 		$month = $this->buildSelect(1, 12, 'month');
@@ -67,32 +76,31 @@ class FormItem_Date extends FormItem
 	}
 
 	/**
-	 *	Build a select
-	 *  @param $from int
-	 *  @param $to int
-	 *  @param $name string
-	 *	@return	string
+	 * Build a select
+	 *
+	 * @param int $from
+	 * @param int $to
+	 * @param string $name
+	 * @return string
 	 */
-	protected function buildSelect($from, $to, $name)
-	{
-		if ($name == 'year')
-		{
+	protected function buildSelect($from, $to, $name) {
+		if ($name == 'year') {
 			$format = '%04s';
 			$options = '';
-		}
-		else
-		{
+		} else {
 			$format = '%02s';
 			$options = '<option>--</option>';
 		}
-		for ($i = $from; $i <= $to; $i++)
-		{
+		for ($i = $from; $i <= $to; $i++) {
 			$selected = ($i == $this->$name)? ' selected="selected"': '';
-			if ($name == 'year') $options = '<option value="' . 
+			if ($name == 'year') {
+				$options = '<option value="' . 
 				sprintf($format, $i) . '"' . $selected . '>' . 
 				sprintf($format, $i) . '</option>' . $options;
-			else $options .= '<option value="' . sprintf($format, $i) . '"' . 
+			} else { 
+				$options .= '<option value="' . sprintf($format, $i) . '"' . 
 				$selected . '>' . sprintf($format, $i) . '</option>';
+			}
 		}
 		if ($name == 'year') $options = '<option>----</option>' . $options;
 		$id = ($this->name)? ' id="' . $name . '_' . $this->name . '"':'';
